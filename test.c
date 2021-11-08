@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	char filename[100];
 	ToneGenerator tonegen;
 	unsigned int numsamples;
-	signed short *samples;
+	void *samples;
 	printf("Enter the wave type.\n");
 	scanf("%d", &wavetype);
 	printf("Enter the sample rate.\n");
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetAmplitude(&tonegen, volume);
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
-	samples = (signed short*)malloc(numsamples*2);
+	samples = malloc(numsamples*2);
 	if (lookup)
 	{
 		ToneGeneratorCalculateLookup(&tonegen);
