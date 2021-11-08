@@ -310,3 +310,16 @@ void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int
 		buffer[i] = (float)ToneGeneratorGenerate(tg);
 	}
 }
+
+void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length)
+{
+	unsigned int i;
+	if (!buffer)
+	{
+		return;
+	}
+	for (i = 0; i < length; i++)
+	{
+		buffer[i] = ToneGeneratorGenerate(tg);
+	}
+}
