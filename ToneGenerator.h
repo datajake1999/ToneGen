@@ -53,10 +53,12 @@ extern "C" {
 	double ToneGeneratorGenerate(ToneGenerator *tg);
 	float ToneGeneratorGenerateFloat(ToneGenerator *tg);
 	signed short ToneGeneratorGenerateShort(ToneGenerator *tg);
+	unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg);
 	void ToneGeneratorCalculateLookup(ToneGenerator *tg);
 	void ToneGeneratorClearLookup(ToneGenerator *tg);
 	void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename);
 	signed short ToneGeneratorGenerateLookup(ToneGenerator *tg);
+	void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length);
 	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup);
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);
 	void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length);

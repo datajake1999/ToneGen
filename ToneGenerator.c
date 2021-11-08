@@ -210,6 +210,29 @@ signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 	return (signed short)Sample;
 }
 
+unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
+{
+	double Sample = ToneGeneratorGenerate(tg) * 128;
+	if (Sample >= 0)
+	{
+		Sample = floor(Sample + 0.5);
+	}
+	else
+	{
+		Sample = ceil(Sample - 0.5);
+	}
+	if (Sample > 127)
+	{
+		Sample = 127;
+	}
+	else if (Sample < -128)
+	{
+		Sample = -128;
+	}
+	Sample += 128;
+	return (unsigned char)Sample;
+}
+
 void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 {
 	unsigned int i;
@@ -287,6 +310,19 @@ signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
 		tg->LookupPosition -= tg->LookupSize;
 	}
 	return Sample;
+}
+
+void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length)
+{
+	unsigned int i;
+	if (!buffer)
+	{
+		return;
+	}
+	for (i = 0; i < length; i++)
+	{
+		buffer[i] = ToneGeneratorGenerateChar(tg);
+	}
 }
 
 void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
