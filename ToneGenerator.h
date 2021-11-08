@@ -55,6 +55,7 @@ extern "C" {
 	signed short ToneGeneratorGenerateShort(ToneGenerator *tg);
 	void ToneGeneratorCalculateLookup(ToneGenerator *tg);
 	void ToneGeneratorClearLookup(ToneGenerator *tg);
+	void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename);
 	signed short ToneGeneratorGenerateLookup(ToneGenerator *tg);
 	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup);
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);

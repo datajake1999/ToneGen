@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
@@ -254,6 +255,22 @@ void ToneGeneratorClearLookup(ToneGenerator *tg)
 	tg->LookupPhaseOffset = 0;
 	tg->LookupSize = 0;
 	tg->LookupPosition = 0;
+}
+
+void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename)
+{
+	FILE *out;
+	if (!tg->LookupTable)
+	{
+		return;
+	}
+	out = fopen(filename, "wb");
+	if (!out)
+	{
+		return;
+	}
+	fwrite(tg->LookupTable, 2, tg->LookupSize, out);
+	fclose(out);
 }
 
 signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
