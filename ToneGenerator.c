@@ -28,10 +28,7 @@ void ToneGeneratorInit(ToneGenerator *tg)
 
 void ToneGeneratorFree(ToneGenerator *tg)
 {
-	if (tg->LookupTable)
-	{
-		free(tg->LookupTable);
-	}
+	ToneGeneratorClearLookup(tg);
 	memset(tg, 0, sizeof(tg));
 }
 
@@ -219,11 +216,7 @@ void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 	{
 		return;
 	}
-	if (tg->LookupTable)
-	{
-		free(tg->LookupTable);
-		tg->LookupTable = NULL;
-	}
+	ToneGeneratorClearLookup(tg);
 	tg->LookupWaveType = tg->WaveType;
 	tg->LookupSampleRate = tg->SampleRate;
 	tg->LookupFrequency = tg->Frequency;
@@ -250,6 +243,7 @@ void ToneGeneratorClearLookup(ToneGenerator *tg)
 {
 	if (tg->LookupTable)
 	{
+		memset(tg->LookupTable, 0, 2*tg->LookupSize);
 		free(tg->LookupTable);
 		tg->LookupTable = NULL;
 	}
