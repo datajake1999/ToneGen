@@ -122,6 +122,27 @@ void ToneGeneratorResetAngle(ToneGenerator *tg)
 	tg->Angle = 0;
 }
 
+const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
+{
+	switch(tg->WaveType)
+	{
+	case WaveTypeSilence:
+		return "Silence";
+	case WaveTypeSine:
+		return "Sine";
+	case WaveTypeSquare:
+		return "Square";
+	case WaveTypeTriangle:
+		return "Triangle";
+	case WaveTypeSawtooth:
+		return "Sawtooth";
+	case WaveTypeNoise:
+		return "Noise";
+	default:
+		return NULL;
+	}
+}
+
 double ToneGeneratorGenerate(ToneGenerator *tg)
 {
 	double Waveform = 0;
