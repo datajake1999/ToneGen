@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	{
 		ToneGeneratorCalculateLookup(&tonegen);
 	}
-	ToneGeneratorFillBuffer(&tonegen, samples, numsamples, lookup);
+	ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples, lookup);
 	printf("Enter the file name.\n");
 	scanf("%s", filename);
 	printf("Writing output to %s.\n", filename);

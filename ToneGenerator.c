@@ -278,7 +278,7 @@ unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
 	return (unsigned int)floor((Millis/1000.0)*tg->SampleRate);
 }
 
-void ToneGeneratorFillBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
+void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
 {
 	unsigned int i;
 	if (!buffer)
