@@ -251,8 +251,7 @@ unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 	{
 		Sample = -128;
 	}
-	Sample += 128;
-	return (unsigned char)Sample;
+	return (unsigned char)Sample + 128;
 }
 
 void ToneGeneratorCalculateLookup(ToneGenerator *tg)
