@@ -278,11 +278,6 @@ signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
 	return Sample;
 }
 
-unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
-{
-	return (unsigned int)floor((Millis/1000.0)*tg->SampleRate);
-}
-
 void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
 {
 	unsigned int i;
@@ -327,4 +322,9 @@ void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned i
 	{
 		buffer[i] = ToneGeneratorGenerate(tg);
 	}
+}
+
+unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
+{
+	return (unsigned int)floor((Millis/1000.0)*tg->SampleRate);
 }

@@ -56,10 +56,10 @@ extern "C" {
 	void ToneGeneratorCalculateLookup(ToneGenerator *tg);
 	void ToneGeneratorClearLookup(ToneGenerator *tg);
 	signed short ToneGeneratorGenerateLookup(ToneGenerator *tg);
-	unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis);
 	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup);
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);
 	void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length);
+	unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis);
 
 #ifdef __cplusplus
 }
