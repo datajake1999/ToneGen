@@ -51,6 +51,7 @@ extern "C" {
 	void ToneGeneratorResetAngle(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg);
 	double ToneGeneratorGenerate(ToneGenerator *tg);
+	float ToneGeneratorGenerateFloat(ToneGenerator *tg);
 	signed short ToneGeneratorGenerateShort(ToneGenerator *tg);
 	void ToneGeneratorCalculateLookup(ToneGenerator *tg);
 	void ToneGeneratorClearLookup(ToneGenerator *tg);

@@ -185,6 +185,11 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 	return tg->Amplitude * Waveform;
 }
 
+float ToneGeneratorGenerateFloat(ToneGenerator *tg)
+{
+	return (float)ToneGeneratorGenerate(tg);
+}
+
 signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 {
 	double Sample = ToneGeneratorGenerate(tg) * 32768;
@@ -307,7 +312,7 @@ void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int
 	}
 	for (i = 0; i < length; i++)
 	{
-		buffer[i] = (float)ToneGeneratorGenerate(tg);
+		buffer[i] = ToneGeneratorGenerateFloat(tg);
 	}
 }
 
