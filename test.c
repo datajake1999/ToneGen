@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	float volume;
 	float phaseoffset;
 	unsigned int milliseconds;
+	unsigned int format;
 	unsigned int lookup;
 	char filename[100];
 	ToneGenerator tonegen;
@@ -28,8 +29,13 @@ int main(int argc, char *argv[])
 	scanf("%f", &phaseoffset);
 	printf("Enter the number of milliseconds.\n");
 	scanf("%d", &milliseconds);
-	printf("Type 1 to use a single cycle lookup table, or 0 to calculate the entire waveform.\n");
-	scanf("%d", &lookup);
+	printf("Enter the audio format.\n");
+	scanf("%d", &format);
+	if (format == 1)
+	{
+		printf("Type 1 to use a single cycle lookup table, or 0 to calculate the entire waveform.\n");
+		scanf("%d", &lookup);
+	}
 	printf("Creating waveform.\n");
 	ToneGeneratorInit(&tonegen);
 	ToneGeneratorSetWaveType(&tonegen, wavetype);
@@ -38,16 +44,58 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetAmplitude(&tonegen, volume);
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
-	samples = malloc(numsamples*2);
-	if (lookup)
+	if (format == 1)
 	{
-		ToneGeneratorCalculateLookup(&tonegen);
+		samples = malloc(numsamples*2);
+		if (lookup)
+		{
+			ToneGeneratorCalculateLookup(&tonegen);
+		}
+		ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples, lookup);
 	}
-	ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples, lookup);
+	else if (format == 2)
+	{
+		samples = malloc(numsamples*4);
+		ToneGeneratorFillLongBuffer(&tonegen, samples, numsamples);
+	}
+	else if (format == 3)
+	{
+		samples = malloc(numsamples*4);
+		ToneGeneratorFillFloatBuffer(&tonegen, samples, numsamples);
+	}
+	else if (format == 4)
+	{
+		samples = malloc(numsamples*8);
+		ToneGeneratorFillDoubleBuffer(&tonegen, samples, numsamples);
+	}
+	else
+	{
+		samples = malloc(numsamples);
+		ToneGeneratorFillCharBuffer(&tonegen, samples, numsamples);
+	}
 	printf("Enter the file name.\n");
 	scanf("%s", filename);
 	printf("Writing output to %s.\n", filename);
-	WavFileOpen(filename, samplerate, 16, 1, 1);
+	if (format == 1)
+	{
+		WavFileOpen(filename, samplerate, 16, 1, 1);
+	}
+	else if (format == 2)
+	{
+		WavFileOpen(filename, samplerate, 32, 1, 1);
+	}
+	else if (format == 3)
+	{
+		WavFileOpen(filename, samplerate, 32, 1, 3);
+	}
+	else if (format == 4)
+	{
+		WavFileOpen(filename, samplerate, 64, 1, 3);
+	}
+	else
+	{
+		WavFileOpen(filename, samplerate, 8, 1, 1);
+	}
 	WavFileWrite(samples, numsamples);
 	WavFileClose();
 	free(samples);
