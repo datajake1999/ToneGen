@@ -188,8 +188,10 @@ float ToneGeneratorGenerateFloat(ToneGenerator *tg)
 	return (float)ToneGeneratorGenerate(tg);
 }
 
-signed long ToneGeneratorGenerateLong(ToneGenerator *tg)
+Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 {
+	Sample24 S24;
+	signed long Intermediate;
 	double Sample = ToneGeneratorGenerate(tg) * 8388608;
 	if (Sample >= 0)
 	{
@@ -207,7 +209,11 @@ signed long ToneGeneratorGenerateLong(ToneGenerator *tg)
 	{
 		Sample = -8388608;
 	}
-	return (signed long)Sample << 8;
+	Intermediate = (signed long)Sample;
+	S24.Data[0] = Intermediate & 0xFF;
+	S24.Data[1] = (Intermediate >> 8) & 0xFF;
+	S24.Data[2] = (Intermediate >> 16) & 0xFF;
+	return S24;
 }
 
 signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
@@ -366,7 +372,7 @@ void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsig
 	}
 }
 
-void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigned int length)
+void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int length)
 {
 	unsigned int i;
 	if (!buffer)
@@ -375,7 +381,7 @@ void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigne
 	}
 	for (i = 0; i < length; i++)
 	{
-		buffer[i] = ToneGeneratorGenerateLong(tg);
+		buffer[i] = ToneGeneratorGenerate24(tg);
 	}
 }
 
