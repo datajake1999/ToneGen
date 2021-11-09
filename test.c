@@ -61,9 +61,14 @@ int main(int argc, char *argv[])
 	else if (format == 3)
 	{
 		samples = malloc(numsamples*4);
-		ToneGeneratorFillFloatBuffer(&tonegen, samples, numsamples);
+		ToneGeneratorFillLongBuffer(&tonegen, samples, numsamples);
 	}
 	else if (format == 4)
+	{
+		samples = malloc(numsamples*4);
+		ToneGeneratorFillFloatBuffer(&tonegen, samples, numsamples);
+	}
+	else if (format == 5)
 	{
 		samples = malloc(numsamples*8);
 		ToneGeneratorFillDoubleBuffer(&tonegen, samples, numsamples);
@@ -86,9 +91,13 @@ int main(int argc, char *argv[])
 	}
 	else if (format == 3)
 	{
-		WavFileOpen(filename, samplerate, 32, 1, 3);
+		WavFileOpen(filename, samplerate, 32, 1, 1);
 	}
 	else if (format == 4)
+	{
+		WavFileOpen(filename, samplerate, 32, 1, 3);
+	}
+	else if (format == 5)
 	{
 		WavFileOpen(filename, samplerate, 64, 1, 3);
 	}

@@ -57,6 +57,7 @@ extern "C" {
 	const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg);
 	double ToneGeneratorGenerate(ToneGenerator *tg);
 	float ToneGeneratorGenerateFloat(ToneGenerator *tg);
+	signed long ToneGeneratorGenerateLong(ToneGenerator *tg);
 	Sample24 ToneGeneratorGenerate24(ToneGenerator *tg);
 	signed short ToneGeneratorGenerateShort(ToneGenerator *tg);
 	unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg);
@@ -67,6 +68,7 @@ extern "C" {
 	void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length);
 	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup);
 	void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int length);
+	void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigned int length);
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);
 	void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length);
 	unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis);
