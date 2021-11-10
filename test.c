@@ -21,19 +21,31 @@ int main(int argc, char *argv[])
 	clock_t begin;
 	clock_t end;
 	double time_spent;
-	printf("Enter the wave type.\n");
+	printf("Enter waveform type.\n");
+	printf("0 = silence.\n");
+	printf("1 = sine.\n");
+	printf("2 = square.\n");
+	printf("3 = triangle.\n");
+	printf("4 = sawtooth.\n");
+	printf("5 = noise.\n");
 	scanf("%d", &wavetype);
-	printf("Enter the sample rate.\n");
+	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
-	printf("Enter the frequency.\n");
+	printf("Enter frequency in hZ.\n");
 	scanf("%f", &frequency);
-	printf("Enter the volume.\n");
+	printf("Enter volume from 0 to 1.\n");
 	scanf("%f", &volume);
-	printf("Enter the phase offset.\n");
+	printf("Enter phase offset in degrees.\n");
 	scanf("%f", &phaseoffset);
-	printf("Enter the number of milliseconds.\n");
+	printf("Enter duration in mS.\n");
 	scanf("%d", &milliseconds);
-	printf("Enter the audio format.\n");
+	printf("Enter audio format.\n");
+	printf("0 = 8 bit PCM.\n");
+	printf("1 = 16 bit PCM.\n");
+	printf("2 = 24 bit PCM.\n");
+	printf("3 = 32 bit PCM.\n");
+	printf("4 = 32 bit float.\n");
+	printf("5 = 64 bit float.\n");
 	scanf("%d", &format);
 	if (format == 1)
 	{
@@ -86,7 +98,7 @@ int main(int argc, char *argv[])
 	end = clock();
 	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	printf("Execution time: %lf seconds.\n", time_spent);
-	printf("Enter the file name.\n");
+	printf("Enter WAV file name.\n");
 	scanf("%s", filename);
 	printf("Writing output to %s.\n", filename);
 	if (format == 1)
