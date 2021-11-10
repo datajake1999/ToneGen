@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "ToneGenerator.h"
 #include "wav_writer.h"
 
@@ -17,6 +18,9 @@ int main(int argc, char *argv[])
 	ToneGenerator tonegen;
 	unsigned int numsamples;
 	void *samples;
+	clock_t begin;
+	clock_t end;
+	double time_spent;
 	printf("Enter the wave type.\n");
 	scanf("%d", &wavetype);
 	printf("Enter the sample rate.\n");
@@ -37,6 +41,7 @@ int main(int argc, char *argv[])
 		scanf("%d", &lookup);
 	}
 	printf("Creating waveform.\n");
+	begin = clock();
 	ToneGeneratorInit(&tonegen);
 	ToneGeneratorSetWaveType(&tonegen, wavetype);
 	ToneGeneratorSetSampleRate(&tonegen, samplerate);
@@ -78,6 +83,9 @@ int main(int argc, char *argv[])
 		samples = malloc(numsamples);
 		ToneGeneratorFillCharBuffer(&tonegen, samples, numsamples);
 	}
+	end = clock();
+	time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Execution time: %lf seconds.\n", time_spent);
 	printf("Enter the file name.\n");
 	scanf("%s", filename);
 	printf("Writing output to %s.\n", filename);
