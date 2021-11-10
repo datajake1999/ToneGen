@@ -305,10 +305,12 @@ void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 	{
 		return;
 	}
+	ToneGeneratorResetAngle(tg);
 	for (i = 0; i < tg->LookupSize; i++)
 	{
 		tg->LookupTable[i] = ToneGeneratorGenerateShort(tg);
 	}
+	ToneGeneratorResetAngle(tg);
 	tg->LookupPosition = 0;
 }
 
