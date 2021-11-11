@@ -211,6 +211,7 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 	Waveform = 0;
 	switch(tg->WaveType)
 	{
+	default:
 	case WaveTypeSilence:
 		break;
 	case WaveTypeSine:
