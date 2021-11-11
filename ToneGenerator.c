@@ -10,6 +10,10 @@ const double twopi = 2 * M_PI;
 
 void ToneGeneratorInit(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->WaveType = WaveTypeSine;
 	tg->SampleRate = 44100;
 	tg->Frequency = 440;
@@ -29,29 +33,49 @@ void ToneGeneratorInit(ToneGenerator *tg)
 
 void ToneGeneratorFree(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return;
+	}
 	ToneGeneratorClearLookup(tg);
 	memset(tg, 0, sizeof(tg));
 }
 
 void ToneGeneratorReset(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return;
+	}
 	ToneGeneratorFree(tg);
 	ToneGeneratorInit(tg);
 }
 
 void ToneGeneratorSetWaveType(ToneGenerator *tg, unsigned int value)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->WaveType = value%WaveTypes;
 }
 
 void ToneGeneratorSetSampleRate(ToneGenerator *tg, double value)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->SampleRate = value;
 	tg->Step = twopi * tg->Frequency / tg->SampleRate;
 }
 
 void ToneGeneratorSetFrequency(ToneGenerator *tg, double value)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->Frequency = value;
 	if (tg->Frequency > tg->SampleRate / 2)
 	{
@@ -66,6 +90,10 @@ void ToneGeneratorSetFrequency(ToneGenerator *tg, double value)
 
 void ToneGeneratorSetAmplitude(ToneGenerator *tg, double value)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->Amplitude = value;
 	if (tg->Amplitude > 1)
 	{
@@ -79,6 +107,10 @@ void ToneGeneratorSetAmplitude(ToneGenerator *tg, double value)
 
 void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->PhaseOffset = value * (twopi / 360);
 	if (tg->PhaseOffset > twopi)
 	{
@@ -92,36 +124,64 @@ void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value)
 
 unsigned int ToneGeneratorGetWaveType(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return tg->WaveType;
 }
 
 double ToneGeneratorGetSampleRate(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return tg->SampleRate;
 }
 
 double ToneGeneratorGetFrequency(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return tg->Frequency;
 }
 
 double ToneGeneratorGetAmplitude(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return tg->Amplitude;
 }
 
 double ToneGeneratorGetPhaseOffset(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return (tg->PhaseOffset * 360) / twopi;
 }
 
 void ToneGeneratorResetAngle(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return;
+	}
 	tg->Angle = 0;
 }
 
 const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return NULL;
+	}
 	switch(tg->WaveType)
 	{
 	case WaveTypeSilence:
@@ -144,6 +204,10 @@ const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 double ToneGeneratorGenerate(ToneGenerator *tg)
 {
 	double Waveform;
+	if (!tg)
+	{
+		return 0;
+	}
 	Waveform = 0;
 	switch(tg->WaveType)
 	{
@@ -186,12 +250,20 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 
 float ToneGeneratorGenerateFloat(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return (float)ToneGeneratorGenerate(tg);
 }
 
 signed long ToneGeneratorGenerateLong(ToneGenerator *tg)
 {
 	double Sample;
+	if (!tg)
+	{
+		return 0;
+	}
 	Sample = ToneGeneratorGenerate(tg) * 2147483648;
 	if (Sample >= 0)
 	{
@@ -217,6 +289,11 @@ Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 	Sample24 S24;
 	signed long Intermediate;
 	double Sample;
+	if (!tg)
+	{
+		memset(&S24, 0, sizeof(S24));
+		return S24;
+	}
 	Sample = ToneGeneratorGenerate(tg) * 8388608;
 	if (Sample >= 0)
 	{
@@ -244,6 +321,10 @@ Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 {
 	double Sample;
+	if (!tg)
+	{
+		return 0;
+	}
 	Sample = ToneGeneratorGenerate(tg) * 32768;
 	if (Sample >= 0)
 	{
@@ -267,6 +348,10 @@ signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 {
 	double Sample;
+	if (!tg)
+	{
+		return 128;
+	}
 	Sample = ToneGeneratorGenerate(tg) * 128;
 	if (Sample >= 0)
 	{
@@ -290,6 +375,10 @@ unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (tg->WaveType == tg->LookupWaveType && tg->SampleRate == tg->LookupSampleRate && tg->Frequency == tg->LookupFrequency && tg->Amplitude == tg->LookupAmplitude && tg->PhaseOffset == tg->LookupPhaseOffset)
 	{
 		return;
@@ -321,6 +410,10 @@ void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 
 void ToneGeneratorClearLookup(ToneGenerator *tg)
 {
+	if (!tg)
+	{
+		return;
+	}
 	if (tg->LookupTable)
 	{
 		memset(tg->LookupTable, 0, 2*tg->LookupSize);
@@ -339,6 +432,10 @@ void ToneGeneratorClearLookup(ToneGenerator *tg)
 void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename)
 {
 	FILE *out;
+	if (!tg)
+	{
+		return;
+	}
 	if (!tg->LookupTable)
 	{
 		return;
@@ -355,6 +452,10 @@ void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename)
 signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
 {
 	signed short Sample;
+	if (!tg)
+	{
+		return 0;
+	}
 	if (!tg->LookupTable)
 	{
 		return 0;
@@ -371,6 +472,10 @@ signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
 void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -384,6 +489,10 @@ void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsig
 void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -404,6 +513,10 @@ void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsig
 void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int length)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -417,6 +530,10 @@ void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int
 void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigned int length)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -430,6 +547,10 @@ void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigne
 void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -443,6 +564,10 @@ void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int
 void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length)
 {
 	unsigned int i;
+	if (!tg)
+	{
+		return;
+	}
 	if (!buffer)
 	{
 		return;
@@ -455,5 +580,9 @@ void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned i
 
 unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
 {
+	if (!tg)
+	{
+		return 0;
+	}
 	return (unsigned int)floor((Millis/1000.0)*tg->SampleRate);
 }
