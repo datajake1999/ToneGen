@@ -143,7 +143,8 @@ const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 
 double ToneGeneratorGenerate(ToneGenerator *tg)
 {
-	double Waveform = 0;
+	double Waveform;
+	Waveform = 0;
 	switch(tg->WaveType)
 	{
 	case WaveTypeSilence:
@@ -190,7 +191,8 @@ float ToneGeneratorGenerateFloat(ToneGenerator *tg)
 
 signed long ToneGeneratorGenerateLong(ToneGenerator *tg)
 {
-	double Sample = ToneGeneratorGenerate(tg) * 2147483648;
+	double Sample;
+	Sample = ToneGeneratorGenerate(tg) * 2147483648;
 	if (Sample >= 0)
 	{
 		Sample = floor(Sample + 0.5);
@@ -214,7 +216,8 @@ Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 {
 	Sample24 S24;
 	signed long Intermediate;
-	double Sample = ToneGeneratorGenerate(tg) * 8388608;
+	double Sample;
+	Sample = ToneGeneratorGenerate(tg) * 8388608;
 	if (Sample >= 0)
 	{
 		Sample = floor(Sample + 0.5);
@@ -240,7 +243,8 @@ Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 
 signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 {
-	double Sample = ToneGeneratorGenerate(tg) * 32768;
+	double Sample;
+	Sample = ToneGeneratorGenerate(tg) * 32768;
 	if (Sample >= 0)
 	{
 		Sample = floor(Sample + 0.5);
@@ -262,7 +266,8 @@ signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 
 unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 {
-	double Sample = ToneGeneratorGenerate(tg) * 128;
+	double Sample;
+	Sample = ToneGeneratorGenerate(tg) * 128;
 	if (Sample >= 0)
 	{
 		Sample = floor(Sample + 0.5);
