@@ -11,7 +11,10 @@ int main(int argc, char *argv[])
 	float freqend;
 	float freqstep;
 	float currfreq;
-	float volume;
+	float volstart;
+	float volend;
+	float volstep;
+	float currvol;
 	float phaseoffset;
 	unsigned int milliseconds;
 	unsigned int i;
@@ -33,8 +36,10 @@ int main(int argc, char *argv[])
 	scanf("%f", &freqstart);
 	printf("Enter ending frequency in hZ.\n");
 	scanf("%f", &freqend);
-	printf("Enter volume from 0 to 1.\n");
-	scanf("%f", &volume);
+	printf("Enter starting volume from 0 to 1.\n");
+	scanf("%f", &volstart);
+	printf("Enter ending volume from 0 to 1.\n");
+	scanf("%f", &volend);
 	printf("Enter phase offset in degrees.\n");
 	scanf("%f", &phaseoffset);
 	printf("Enter duration in mS.\n");
@@ -43,18 +48,22 @@ int main(int argc, char *argv[])
 	ToneGeneratorInit(&tonegen);
 	ToneGeneratorSetWaveType(&tonegen, wavetype);
 	ToneGeneratorSetSampleRate(&tonegen, samplerate);
-	ToneGeneratorSetAmplitude(&tonegen, volume);
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
 	samples = malloc(numsamples*2);
 	freqstep = (freqend - freqstart) / numsamples;
 	currfreq = freqstart;
 	ToneGeneratorSetFrequency(&tonegen, currfreq);
+	volstep = (volend - volstart) / numsamples;
+	currvol = volstart;
+	ToneGeneratorSetAmplitude(&tonegen, currvol);
 	for (i = 0; i < numsamples; i++)
 	{
 		samples[i] = ToneGeneratorGenerateShort(&tonegen);
 		currfreq += freqstep;
 		ToneGeneratorSetFrequency(&tonegen, currfreq);
+		currvol += volstep;
+		ToneGeneratorSetAmplitude(&tonegen, currvol);
 	}
 	printf("Enter WAV file name.\n");
 	scanf("%s", filename);
