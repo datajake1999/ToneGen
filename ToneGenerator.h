@@ -77,4 +77,4 @@ extern "C" {
 }
 #endif
 
-#endif
+#endif //TONEGENERATOR_H
