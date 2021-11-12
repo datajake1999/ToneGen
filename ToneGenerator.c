@@ -493,6 +493,10 @@ void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 	{
 		return;
 	}
+	if (TG->WaveType == WaveTypeDTMF)
+	{
+		return;
+	}
 	ToneGeneratorClearLookup(tg);
 	tg->LookupWaveType = tg->WaveType;
 	tg->LookupSampleRate = tg->SampleRate;
