@@ -266,6 +266,8 @@ void ToneGeneratorResetAngle(ToneGenerator *tg)
 		return;
 	}
 	tg->Angle = 0;
+	tg->DTMFAngle1 = 0;
+	tg->DTMFAngle2 = 0;
 }
 
 const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
