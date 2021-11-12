@@ -51,10 +51,10 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
 	samples = malloc(numsamples*2);
-	freqstep = (freqend - freqstart) / numsamples;
+	freqstep = ToneGeneratorCalculateSweepStep(&tonegen, freqstart, freqend, milliseconds);
 	currfreq = freqstart;
 	ToneGeneratorSetFrequency(&tonegen, currfreq);
-	volstep = (volend - volstart) / numsamples;
+	volstep = ToneGeneratorCalculateSweepStep(&tonegen, volstart, volend, milliseconds);
 	currvol = volstart;
 	ToneGeneratorSetAmplitude(&tonegen, currvol);
 	for (i = 0; i < numsamples; i++)

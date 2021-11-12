@@ -587,3 +587,12 @@ unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
 	}
 	return (unsigned int)floor((Millis/1000.0)*tg->SampleRate);
 }
+
+double ToneGeneratorCalculateSweepStep(ToneGenerator *tg, double Start, double End, unsigned int Millis)
+{
+	if (!tg)
+	{
+		return 0;
+	}
+	return (End - Start) / ToneGeneratorMillis2Samples(tg, Millis);
+}

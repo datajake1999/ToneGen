@@ -72,6 +72,7 @@ extern "C" {
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);
 	void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length);
 	unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis);
+	double ToneGeneratorCalculateSweepStep(ToneGenerator *tg, double Start, double End, unsigned int Millis);
 
 #ifdef __cplusplus
 }
