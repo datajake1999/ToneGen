@@ -29,6 +29,9 @@ void ToneGeneratorInit(ToneGenerator *tg)
 	tg->LookupPhaseOffset = 0;
 	tg->LookupSize = 0;
 	tg->LookupPosition = 0;
+	tg->DTMFAngle1 = 0;
+	tg->DTMFAngle2 = 0;
+	ToneGeneratorSetDigit(tg, DTMF0);
 }
 
 void ToneGeneratorFree(ToneGenerator *tg)
@@ -68,6 +71,8 @@ void ToneGeneratorSetSampleRate(ToneGenerator *tg, double value)
 	}
 	tg->SampleRate = value;
 	tg->Step = twopi * tg->Frequency / tg->SampleRate;
+	tg->DTMFStep1 = twopi * tg->DTMFFrequency1 / tg->SampleRate;
+	tg->DTMFStep2 = twopi * tg->DTMFFrequency2 / tg->SampleRate;
 }
 
 void ToneGeneratorSetFrequency(ToneGenerator *tg, double value)
@@ -86,6 +91,84 @@ void ToneGeneratorSetFrequency(ToneGenerator *tg, double value)
 		tg->Frequency = 0;
 	}
 	tg->Step = twopi * tg->Frequency / tg->SampleRate;
+}
+
+void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
+{
+	if (!tg)
+	{
+		return;
+	}
+	switch(value)
+	{
+	case DTMF1:
+		tg->DTMFFrequency1 = 1209;
+		tg->DTMFFrequency2 = 697;
+		break;
+	case DTMF2:
+		tg->DTMFFrequency1 = 1336;
+		tg->DTMFFrequency2 = 697;
+		break;
+	case DTMF3:
+		tg->DTMFFrequency1 = 1477;
+		tg->DTMFFrequency2 = 697;
+		break;
+	case DTMF4:
+		tg->DTMFFrequency1 = 1209;
+		tg->DTMFFrequency2 = 770;
+		break;
+	case DTMF5:
+		tg->DTMFFrequency1 = 1336;
+		tg->DTMFFrequency2 = 770;
+		break;
+	case DTMF6:
+		tg->DTMFFrequency1 = 1477;
+		tg->DTMFFrequency2 = 770;
+		break;
+	case DTMF7:
+		tg->DTMFFrequency1 = 1209;
+		tg->DTMFFrequency2 = 852;
+		break;
+	case DTMF8:
+		tg->DTMFFrequency1 = 1336;
+		tg->DTMFFrequency2 = 852;
+		break;
+	case DTMF9:
+		tg->DTMFFrequency1 = 1477;
+		tg->DTMFFrequency2 = 852;
+		break;
+	case DTMFSTAR:
+		tg->DTMFFrequency1 = 1209;
+		tg->DTMFFrequency2 = 941;
+		break;
+	case DTMF0:
+		tg->DTMFFrequency1 = 1336;
+		tg->DTMFFrequency2 = 941;
+		break;
+	case DTMFHASH:
+		tg->DTMFFrequency1 = 1477;
+		tg->DTMFFrequency2 = 941;
+		break;
+	case DTMFA:
+		tg->DTMFFrequency1 = 1633;
+		tg->DTMFFrequency2 = 697;
+		break;
+	case DTMFB:
+		tg->DTMFFrequency1 = 1633;
+		tg->DTMFFrequency2 = 770;
+		break;
+	case DTMFC:
+		tg->DTMFFrequency1 = 1633;
+		tg->DTMFFrequency2 = 852;
+		break;
+	case DTMFD:
+		tg->DTMFFrequency1 = 1633;
+		tg->DTMFFrequency2 = 941;
+		break;
+	}
+	tg->Digit = value;
+	tg->DTMFStep1 = twopi * tg->DTMFFrequency1 / tg->SampleRate;
+	tg->DTMFStep2 = twopi * tg->DTMFFrequency2 / tg->SampleRate;
 }
 
 void ToneGeneratorSetAmplitude(ToneGenerator *tg, double value)
@@ -149,6 +232,15 @@ double ToneGeneratorGetFrequency(ToneGenerator *tg)
 	return tg->Frequency;
 }
 
+unsigned int ToneGeneratorGetDigit(ToneGenerator *tg)
+{
+	if (!tg)
+	{
+		return 0;
+	}
+	return tg->Digit;
+}
+
 double ToneGeneratorGetAmplitude(ToneGenerator *tg)
 {
 	if (!tg)
@@ -196,6 +288,8 @@ const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 		return "Sawtooth";
 	case WaveTypeNoise:
 		return "Noise";
+	case WaveTypeDTMF:
+		return "DTMF";
 	default:
 		return NULL;
 	}
@@ -239,6 +333,19 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		break;
 	case WaveTypeNoise:
 		Waveform = rand() / (double)RAND_MAX;
+		break;
+	case WaveTypeDTMF:
+		Waveform = (sin(tg->DTMFAngle1) + sin(tg->DTMFAngle2)) / 2;
+		tg->DTMFAngle1 += tg->DTMFStep1;
+		if (tg->DTMFAngle1 >= twopi)
+		{
+			tg->DTMFAngle1 -= twopi;
+		}
+		tg->DTMFAngle2 += tg->DTMFStep2;
+		if (tg->DTMFAngle2 >= twopi)
+		{
+			tg->DTMFAngle2 -= twopi;
+		}
 		break;
 	}
 	tg->Angle += tg->Step;

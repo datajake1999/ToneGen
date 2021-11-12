@@ -9,7 +9,25 @@ enum
 	WaveTypeTriangle,
 	WaveTypeSawtooth,
 	WaveTypeNoise,
-	WaveTypes
+	WaveTypeDTMF,
+	WaveTypes,
+	DTMF0 = 10,
+	DTMF1,
+	DTMF2,
+	DTMF3,
+	DTMF4,
+	DTMF5,
+	DTMF6,
+	DTMF7,
+	DTMF8,
+	DTMF9,
+	DTMFSTAR,
+	DTMFHASH,
+	DTMFA,
+	DTMFB,
+	DTMFC,
+	DTMFD,
+	DTMFTones
 };
 
 #ifdef __cplusplus
@@ -33,6 +51,13 @@ extern "C" {
 		double LookupPhaseOffset;
 		unsigned int LookupSize;
 		unsigned int LookupPosition;
+		unsigned int Digit;
+		double DTMFFrequency1;
+		double DTMFAngle1;
+		double DTMFStep1;
+		double DTMFFrequency2;
+		double DTMFAngle2;
+		double DTMFStep2;
 	}ToneGenerator;
 
 	typedef struct
@@ -46,11 +71,13 @@ extern "C" {
 	void ToneGeneratorSetWaveType(ToneGenerator *tg, unsigned int value);
 	void ToneGeneratorSetSampleRate(ToneGenerator *tg, double value);
 	void ToneGeneratorSetFrequency(ToneGenerator *tg, double value);
+	void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value);
 	void ToneGeneratorSetAmplitude(ToneGenerator *tg, double value);
 	void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value);
 	unsigned int ToneGeneratorGetWaveType(ToneGenerator *tg);
 	double ToneGeneratorGetSampleRate(ToneGenerator *tg);
 	double ToneGeneratorGetFrequency(ToneGenerator *tg);
+	unsigned int ToneGeneratorGetDigit(ToneGenerator *tg);
 	double ToneGeneratorGetAmplitude(ToneGenerator *tg);
 	double ToneGeneratorGetPhaseOffset(ToneGenerator *tg);
 	void ToneGeneratorResetAngle(ToneGenerator *tg);
