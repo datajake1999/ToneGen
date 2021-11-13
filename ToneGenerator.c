@@ -350,10 +350,13 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		}
 		break;
 	}
-	tg->Angle += tg->Step;
-	if (tg->Angle >= twopi)
+	if (tg->WaveType >= WaveTypeSine && tg->WaveType <= WaveTypeSawtooth)
 	{
-		tg->Angle -= twopi;
+		tg->Angle += tg->Step;
+		if (tg->Angle >= twopi)
+		{
+			tg->Angle -= twopi;
+		}
 	}
 	return tg->Amplitude * Waveform;
 }
