@@ -493,7 +493,7 @@ void ToneGeneratorCalculateLookup(ToneGenerator *tg)
 	{
 		return;
 	}
-	if (TG->WaveType == WaveTypeDTMF)
+	if (tg->WaveType == WaveTypeDTMF)
 	{
 		return;
 	}
