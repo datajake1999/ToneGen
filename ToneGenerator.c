@@ -70,8 +70,32 @@ void ToneGeneratorSetSampleRate(ToneGenerator *tg, double value)
 		return;
 	}
 	tg->SampleRate = value;
+	if (tg->Frequency > tg->SampleRate / 2)
+	{
+		tg->Frequency = tg->SampleRate / 2;
+	}
+	else if (tg->Frequency < 0)
+	{
+		tg->Frequency = 0;
+	}
 	tg->Step = twopi * tg->Frequency / tg->SampleRate;
+	if (tg->DTMFFrequency1 > tg->SampleRate / 2)
+	{
+		tg->DTMFFrequency1 = tg->SampleRate / 2;
+	}
+	else if (tg->DTMFFrequency1 < 0)
+	{
+		tg->DTMFFrequency1 = 0;
+	}
 	tg->DTMFStep1 = twopi * tg->DTMFFrequency1 / tg->SampleRate;
+	if (tg->DTMFFrequency2 > tg->SampleRate / 2)
+	{
+		tg->DTMFFrequency2 = tg->SampleRate / 2;
+	}
+	else if (tg->DTMFFrequency2 < 0)
+	{
+		tg->DTMFFrequency2 = 0;
+	}
 	tg->DTMFStep2 = twopi * tg->DTMFFrequency2 / tg->SampleRate;
 }
 
