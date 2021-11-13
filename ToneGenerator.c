@@ -99,7 +99,8 @@ void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
 	{
 		return;
 	}
-	switch(value)
+	tg->Digit = value;
+	switch(tg->Digit)
 	{
 	case DTMF1:
 		tg->DTMFFrequency1 = 1209;
@@ -166,7 +167,6 @@ void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
 		tg->DTMFFrequency2 = 941;
 		break;
 	}
-	tg->Digit = value;
 	tg->DTMFStep1 = twopi * tg->DTMFFrequency1 / tg->SampleRate;
 	tg->DTMFStep2 = twopi * tg->DTMFFrequency2 / tg->SampleRate;
 }
