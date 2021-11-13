@@ -167,7 +167,23 @@ void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
 		tg->DTMFFrequency2 = 941;
 		break;
 	}
+	if (tg->DTMFFrequency1 > tg->SampleRate / 2)
+	{
+		tg->DTMFFrequency1 = tg->SampleRate / 2;
+	}
+	else if (tg->DTMFFrequency1 < 0)
+	{
+		tg->DTMFFrequency1 = 0;
+	}
 	tg->DTMFStep1 = twopi * tg->DTMFFrequency1 / tg->SampleRate;
+	if (tg->DTMFFrequency2 > tg->SampleRate / 2)
+	{
+		tg->DTMFFrequency2 = tg->SampleRate / 2;
+	}
+	else if (tg->DTMFFrequency2 < 0)
+	{
+		tg->DTMFFrequency2 = 0;
+	}
 	tg->DTMFStep2 = twopi * tg->DTMFFrequency2 / tg->SampleRate;
 }
 
