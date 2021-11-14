@@ -11,7 +11,7 @@ enum
 	WaveTypeNoise,
 	WaveTypeDTMF,
 	WaveTypes,
-	DTMF0 = 10,
+	DTMF0 = 0,
 	DTMF1,
 	DTMF2,
 	DTMF3,
@@ -21,12 +21,12 @@ enum
 	DTMF7,
 	DTMF8,
 	DTMF9,
-	DTMFSTAR,
-	DTMFHASH,
 	DTMFA,
 	DTMFB,
 	DTMFC,
 	DTMFD,
+	DTMFSTAR,
+	DTMFHASH,
 	DTMFTones
 };
 
