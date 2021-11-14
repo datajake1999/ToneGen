@@ -310,6 +310,15 @@ void ToneGeneratorResetAngle(ToneGenerator *tg)
 	tg->DTMFAngle2 = 0;
 }
 
+void ToneGeneratorResetLookupPosition(ToneGenerator *tg)
+{
+	if (!tg)
+	{
+		return;
+	}
+	tg->LookupPosition = 0;
+}
+
 const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 {
 	if (!tg)

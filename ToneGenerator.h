@@ -81,6 +81,7 @@ extern "C" {
 	double ToneGeneratorGetAmplitude(ToneGenerator *tg);
 	double ToneGeneratorGetPhaseOffset(ToneGenerator *tg);
 	void ToneGeneratorResetAngle(ToneGenerator *tg);
+	void ToneGeneratorResetLookupPosition(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg);
 	double ToneGeneratorGenerate(ToneGenerator *tg);
 	float ToneGeneratorGenerateFloat(ToneGenerator *tg);
