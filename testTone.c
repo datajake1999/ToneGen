@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 	unsigned int wavetype;
 	unsigned int samplerate;
 	float frequency;
+	unsigned int digit;
 	float volume;
 	float phaseoffset;
 	unsigned int milliseconds;
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 	printf("3 = triangle.\n");
 	printf("4 = sawtooth.\n");
 	printf("5 = noise.\n");
+	printf("6 = DTMF.\n");
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
@@ -35,6 +37,11 @@ int main(int argc, char *argv[])
 	{
 		printf("Enter frequency in hZ.\n");
 		scanf("%f", &frequency);
+	}
+	else if (wavetype == WaveTypeDTMF)
+	{
+		printf("Enter digit.\n");
+		scanf("%x", &digit);
 	}
 	if (wavetype > WaveTypeSilence)
 	{
@@ -67,6 +74,7 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetWaveType(&tonegen, wavetype);
 	ToneGeneratorSetSampleRate(&tonegen, samplerate);
 	ToneGeneratorSetFrequency(&tonegen, frequency);
+	ToneGeneratorSetDigit(&tonegen, digit);
 	ToneGeneratorSetAmplitude(&tonegen, volume);
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
