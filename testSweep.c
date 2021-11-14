@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 	float volend;
 	float volstep;
 	float currvol;
-	float phaseoffset;
 	unsigned int milliseconds;
 	unsigned int i;
 	char filename[100];
@@ -23,12 +22,10 @@ int main(int argc, char *argv[])
 	unsigned int numsamples;
 	signed short *samples;
 	printf("Enter waveform type.\n");
-	printf("0 = silence.\n");
 	printf("1 = sine.\n");
 	printf("2 = square.\n");
 	printf("3 = triangle.\n");
 	printf("4 = sawtooth.\n");
-	printf("5 = noise.\n");
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
@@ -40,15 +37,12 @@ int main(int argc, char *argv[])
 	scanf("%f", &volstart);
 	printf("Enter ending volume from 0 to 1.\n");
 	scanf("%f", &volend);
-	printf("Enter phase offset in degrees.\n");
-	scanf("%f", &phaseoffset);
 	printf("Enter duration in mS.\n");
 	scanf("%d", &milliseconds);
 	printf("Creating waveform.\n");
 	ToneGeneratorInit(&tonegen);
 	ToneGeneratorSetWaveType(&tonegen, wavetype);
 	ToneGeneratorSetSampleRate(&tonegen, samplerate);
-	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
 	samples = malloc(numsamples*2);
 	freqstep = ToneGeneratorCalculateSweepStep(&tonegen, freqstart, freqend, milliseconds);

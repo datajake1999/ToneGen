@@ -31,12 +31,21 @@ int main(int argc, char *argv[])
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
-	printf("Enter frequency in hZ.\n");
-	scanf("%f", &frequency);
-	printf("Enter volume from 0 to 1.\n");
-	scanf("%f", &volume);
-	printf("Enter phase offset in degrees.\n");
-	scanf("%f", &phaseoffset);
+	if (wavetype >= WaveTypeSine && WaveType <= WaveTypeSawtooth)
+	{
+		printf("Enter frequency in hZ.\n");
+		scanf("%f", &frequency);
+	}
+	if (wavetype > WaveTypeSilence)
+	{
+		printf("Enter volume from 0 to 1.\n");
+		scanf("%f", &volume);
+	}
+	if (wavetype == WaveTypeSine)
+	{
+		printf("Enter phase offset in degrees.\n");
+		scanf("%f", &phaseoffset);
+	}
 	printf("Enter duration in mS.\n");
 	scanf("%d", &milliseconds);
 	printf("Enter audio format.\n");
