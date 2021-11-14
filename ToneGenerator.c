@@ -346,6 +346,51 @@ const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 	}
 }
 
+const char *ToneGeneratorGetCurrentDigitName(ToneGenerator *tg)
+{
+	if (!tg)
+	{
+		return NULL;
+	}
+	switch(tg->Digit)
+	{
+	case DTMF1:
+		return "1";
+	case DTMF2:
+		return "2";
+	case DTMF3:
+		return "3";
+	case DTMF4:
+		return "4";
+	case DTMF5:
+		return "5";
+	case DTMF6:
+		return "6";
+	case DTMF7:
+		return "7";
+	case DTMF8:
+		return "8";
+	case DTMF9:
+		return "9";
+	case DTMFSTAR:
+		return "*";
+	case DTMF0:
+		return "0";
+	case DTMFHASH:
+		return "#";
+	case DTMFA:
+		return "A";
+	case DTMFB:
+		return "B";
+	case DTMFC:
+		return "C";
+	case DTMFD:
+		return "D";
+	default:
+		return NULL;
+	}
+}
+
 double ToneGeneratorGenerate(ToneGenerator *tg)
 {
 	double Waveform;
