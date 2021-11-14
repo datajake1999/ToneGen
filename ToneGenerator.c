@@ -123,7 +123,7 @@ void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
 	{
 		return;
 	}
-	tg->Digit = value;
+	tg->Digit = value%DTMFTones;
 	switch(tg->Digit)
 	{
 	case DTMF1:
