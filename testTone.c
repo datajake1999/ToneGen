@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
-	if (wavetype >= WaveTypeSine && WaveType <= WaveTypeSawtooth)
+	if (wavetype >= WaveTypeSine && wavetype <= WaveTypeSawtooth)
 	{
 		printf("Enter frequency in hZ.\n");
 		scanf("%f", &frequency);
