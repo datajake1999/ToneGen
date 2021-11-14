@@ -10,7 +10,11 @@ enum
 	WaveTypeSawtooth,
 	WaveTypeNoise,
 	WaveTypeDTMF,
-	WaveTypes,
+	WaveTypes
+};
+
+enum
+{
 	DTMF0 = 0,
 	DTMF1,
 	DTMF2,
