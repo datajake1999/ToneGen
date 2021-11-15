@@ -20,9 +20,26 @@ static void FillTable()
 int main()
 {
 	FILE *tabfile;
+	unsigned int i;
 	FillTable();
-	tabfile = fopen("sinetab", "wb");
-	fwrite(table, 1, sizeof(table), tabfile);
+	tabfile = fopen("sinetab.h", "w");
+	fprintf(tabfile, "//Sine wave lookup table\n\n");
+	fprintf(tabfile, "#ifndef SINETAB_H\n");
+	fprintf(tabfile, "#define SINETAB_H\n\n");
+	fprintf(tabfile, "const double TableSize = %d.0;\n\n", tabsize);
+	fprintf(tabfile, "static const double SineTable[%d] = \n", tabsize);
+	fprintf(tabfile, "{\n");
+	for (i = 0; i < tabsize; i++)
+	{
+		if (i == tabsize-1)
+		{
+			fprintf(tabfile, "%f\n", table[i]);
+			break;
+		}
+		fprintf(tabfile, "%f,\n", table[i]);
+	}
+	fprintf(tabfile, "};\n\n");
+	fprintf(tabfile, "#endif //SINETAB_H");
 	fclose(tabfile);
 	return 0;
 }
