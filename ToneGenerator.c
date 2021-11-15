@@ -554,11 +554,7 @@ unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
@@ -571,11 +567,7 @@ void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsig
 void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
@@ -588,11 +580,7 @@ void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsig
 void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
@@ -605,11 +593,7 @@ void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int
 void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
@@ -622,11 +606,7 @@ void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigne
 void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
@@ -639,11 +619,7 @@ void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int
 void ToneGeneratorFillDoubleBuffer(ToneGenerator *tg, double *buffer, unsigned int length)
 {
 	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (!buffer)
+	if (!tg || !buffer)
 	{
 		return;
 	}
