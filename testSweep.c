@@ -3,6 +3,11 @@
 #include "ToneGenerator.h"
 #include "wav_writer.h"
 
+double CalculateSweepStep(double Start, double End, unsigned int NumSamples)
+{
+	return (End - Start) / NumSamples;
+}
+
 int main(int argc, char *argv[])
 {
 	unsigned int wavetype;
@@ -45,10 +50,10 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetSampleRate(&tonegen, samplerate);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
 	samples = malloc(numsamples*2);
-	freqstep = ToneGeneratorCalculateSweepStep(&tonegen, freqstart, freqend, milliseconds);
+	freqstep = CalculateSweepStep(freqstart, freqend, numsamples);
 	currfreq = freqstart;
 	ToneGeneratorSetFrequency(&tonegen, currfreq);
-	volstep = ToneGeneratorCalculateSweepStep(&tonegen, volstart, volend, milliseconds);
+	volstep = CalculateSweepStep(volstart, volend, numsamples);
 	currvol = volstart;
 	ToneGeneratorSetAmplitude(&tonegen, currvol);
 	for (i = 0; i < numsamples; i++)
