@@ -35,16 +35,6 @@ void ToneGeneratorFree(ToneGenerator *tg)
 	memset(tg, 0, sizeof(tg));
 }
 
-void ToneGeneratorReset(ToneGenerator *tg)
-{
-	if (!tg)
-	{
-		return;
-	}
-	ToneGeneratorFree(tg);
-	ToneGeneratorInit(tg);
-}
-
 void ToneGeneratorSetWaveType(ToneGenerator *tg, unsigned int value)
 {
 	if (!tg)
