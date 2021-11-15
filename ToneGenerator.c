@@ -21,14 +21,6 @@ void ToneGeneratorInit(ToneGenerator *tg)
 	tg->PhaseOffset = 0;
 	tg->Angle = 0;
 	tg->Step = twopi * tg->Frequency / tg->SampleRate;
-	tg->LookupTable = NULL;
-	tg->LookupWaveType = 0;
-	tg->LookupSampleRate = 0;
-	tg->LookupFrequency = 0;
-	tg->LookupAmplitude = 0;
-	tg->LookupPhaseOffset = 0;
-	tg->LookupSize = 0;
-	tg->LookupPosition = 0;
 	tg->DTMFAngle1 = 0;
 	tg->DTMFAngle2 = 0;
 	ToneGeneratorSetDigit(tg, DTMF0);
@@ -40,7 +32,6 @@ void ToneGeneratorFree(ToneGenerator *tg)
 	{
 		return;
 	}
-	ToneGeneratorClearLookup(tg);
 	memset(tg, 0, sizeof(tg));
 }
 
@@ -310,15 +301,6 @@ void ToneGeneratorResetAngle(ToneGenerator *tg)
 	tg->DTMFAngle2 = 0;
 }
 
-void ToneGeneratorResetLookupPosition(ToneGenerator *tg)
-{
-	if (!tg)
-	{
-		return;
-	}
-	tg->LookupPosition = 0;
-}
-
 const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg)
 {
 	if (!tg)
@@ -579,107 +561,6 @@ unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 	return (unsigned char)Sample + 128;
 }
 
-void ToneGeneratorCalculateLookup(ToneGenerator *tg)
-{
-	unsigned int i;
-	if (!tg)
-	{
-		return;
-	}
-	if (tg->WaveType == tg->LookupWaveType && tg->SampleRate == tg->LookupSampleRate && tg->Frequency == tg->LookupFrequency && tg->Amplitude == tg->LookupAmplitude && tg->PhaseOffset == tg->LookupPhaseOffset)
-	{
-		return;
-	}
-	if (tg->WaveType == WaveTypeDTMF)
-	{
-		return;
-	}
-	ToneGeneratorClearLookup(tg);
-	tg->LookupWaveType = tg->WaveType;
-	tg->LookupSampleRate = tg->SampleRate;
-	tg->LookupFrequency = tg->Frequency;
-	tg->LookupAmplitude = tg->Amplitude;
-	tg->LookupPhaseOffset = tg->PhaseOffset;
-	tg->LookupSize = (unsigned int)floor((tg->LookupSampleRate/tg->LookupFrequency)+0.5);
-	if (tg->LookupSize < 2)
-	{
-		tg->LookupSize = 2;
-	}
-	tg->LookupTable = (signed short*)malloc(tg->LookupSize*2);
-	if (!tg->LookupTable)
-	{
-		return;
-	}
-	ToneGeneratorResetAngle(tg);
-	for (i = 0; i < tg->LookupSize; i++)
-	{
-		tg->LookupTable[i] = ToneGeneratorGenerateShort(tg);
-	}
-	ToneGeneratorResetAngle(tg);
-	tg->LookupPosition = 0;
-}
-
-void ToneGeneratorClearLookup(ToneGenerator *tg)
-{
-	if (!tg)
-	{
-		return;
-	}
-	if (tg->LookupTable)
-	{
-		memset(tg->LookupTable, 0, 2*tg->LookupSize);
-		free(tg->LookupTable);
-		tg->LookupTable = NULL;
-	}
-	tg->LookupWaveType = 0;
-	tg->LookupSampleRate = 0;
-	tg->LookupFrequency = 0;
-	tg->LookupAmplitude = 0;
-	tg->LookupPhaseOffset = 0;
-	tg->LookupSize = 0;
-	tg->LookupPosition = 0;
-}
-
-void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename)
-{
-	FILE *out;
-	if (!tg)
-	{
-		return;
-	}
-	if (!tg->LookupTable)
-	{
-		return;
-	}
-	out = fopen(filename, "wb");
-	if (!out)
-	{
-		return;
-	}
-	fwrite(tg->LookupTable, 2, tg->LookupSize, out);
-	fclose(out);
-}
-
-signed short ToneGeneratorGenerateLookup(ToneGenerator *tg)
-{
-	signed short Sample;
-	if (!tg)
-	{
-		return 0;
-	}
-	if (!tg->LookupTable)
-	{
-		return 0;
-	}
-	Sample = tg->LookupTable[tg->LookupPosition];
-	tg->LookupPosition++;
-	if (tg->LookupPosition >= tg->LookupSize)
-	{
-		tg->LookupPosition -= tg->LookupSize;
-	}
-	return Sample;
-}
-
 void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length)
 {
 	unsigned int i;
@@ -697,7 +578,7 @@ void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsig
 	}
 }
 
-void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup)
+void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length)
 {
 	unsigned int i;
 	if (!tg)
@@ -710,14 +591,7 @@ void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsig
 	}
 	for (i = 0; i < length; i++)
 	{
-		if (lookup)
-		{
-			buffer[i] = ToneGeneratorGenerateLookup(tg);
-		}
-		else
-		{
-			buffer[i] = ToneGeneratorGenerateShort(tg);
-		}
+		buffer[i] = ToneGeneratorGenerateShort(tg);
 	}
 }
 

@@ -47,14 +47,6 @@ extern "C" {
 		double PhaseOffset;
 		double Angle;
 		double Step;
-		signed short *LookupTable;
-		unsigned int LookupWaveType;
-		double LookupSampleRate;
-		double LookupFrequency;
-		double LookupAmplitude;
-		double LookupPhaseOffset;
-		unsigned int LookupSize;
-		unsigned int LookupPosition;
 		unsigned int Digit;
 		double DTMFFrequency1;
 		double DTMFAngle1;
@@ -85,7 +77,6 @@ extern "C" {
 	double ToneGeneratorGetAmplitude(ToneGenerator *tg);
 	double ToneGeneratorGetPhaseOffset(ToneGenerator *tg);
 	void ToneGeneratorResetAngle(ToneGenerator *tg);
-	void ToneGeneratorResetLookupPosition(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentDigitName(ToneGenerator *tg);
 	double ToneGeneratorGenerate(ToneGenerator *tg);
@@ -94,12 +85,8 @@ extern "C" {
 	Sample24 ToneGeneratorGenerate24(ToneGenerator *tg);
 	signed short ToneGeneratorGenerateShort(ToneGenerator *tg);
 	unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg);
-	void ToneGeneratorCalculateLookup(ToneGenerator *tg);
-	void ToneGeneratorClearLookup(ToneGenerator *tg);
-	void ToneGeneratorSaveLookup(ToneGenerator *tg, const char *filename);
-	signed short ToneGeneratorGenerateLookup(ToneGenerator *tg);
 	void ToneGeneratorFillCharBuffer(ToneGenerator *tg, unsigned char *buffer, unsigned int length);
-	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length, unsigned int lookup);
+	void ToneGeneratorFillShortBuffer(ToneGenerator *tg, signed short *buffer, unsigned int length);
 	void ToneGeneratorFill24Buffer(ToneGenerator *tg, Sample24 *buffer, unsigned int length);
 	void ToneGeneratorFillLongBuffer(ToneGenerator *tg, signed long *buffer, unsigned int length);
 	void ToneGeneratorFillFloatBuffer(ToneGenerator *tg, float *buffer, unsigned int length);

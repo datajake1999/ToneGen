@@ -14,7 +14,6 @@ int main(int argc, char *argv[])
 	float phaseoffset;
 	unsigned int milliseconds;
 	unsigned int format;
-	unsigned int lookup;
 	char filename[100];
 	ToneGenerator tonegen;
 	unsigned int numsamples;
@@ -63,11 +62,6 @@ int main(int argc, char *argv[])
 	printf("4 = 32 bit float.\n");
 	printf("5 = 64 bit float.\n");
 	scanf("%d", &format);
-	if (format == 1)
-	{
-		printf("Type 1 to use a single cycle lookup table, or 0 to calculate the entire waveform.\n");
-		scanf("%d", &lookup);
-	}
 	printf("Creating waveform.\n");
 	begin = clock();
 	ToneGeneratorInit(&tonegen);
@@ -81,11 +75,7 @@ int main(int argc, char *argv[])
 	if (format == 1)
 	{
 		samples = malloc(numsamples*2);
-		if (lookup)
-		{
-			ToneGeneratorCalculateLookup(&tonegen);
-		}
-		ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples, lookup);
+		ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples);
 	}
 	else if (format == 2)
 	{

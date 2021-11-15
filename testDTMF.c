@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	for (i = DTMF0; i < DTMFTones; i++)
 	{
 		ToneGeneratorSetDigit(&tonegen, i);
-		ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples, 0);
+		ToneGeneratorFillShortBuffer(&tonegen, samples, numsamples);
 		WavFileWrite(samples, numsamples);
 	}
 	WavFileClose();
