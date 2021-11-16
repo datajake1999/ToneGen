@@ -415,7 +415,7 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		break;
 	case WaveTypeDTMF:
 #ifdef lookup
-		Waveform = (SineTable[tg->DTMFAngle1] + SineTable[tg->DTMFAngle2]) / 2;
+		Waveform = (SineTable[(unsigned int)tg->DTMFAngle1] + SineTable[(unsigned int)tg->DTMFAngle2]) / 2;
 #else
 		Waveform = (sin(tg->DTMFAngle1) + sin(tg->DTMFAngle2)) / 2;
 #endif
