@@ -459,14 +459,6 @@ signed long ToneGeneratorGenerateLong(ToneGenerator *tg)
 		return 0;
 	}
 	Sample = ToneGeneratorGenerate(tg) * 2147483648;
-	if (Sample >= 0)
-	{
-		Sample = floor(Sample + 0.5);
-	}
-	else
-	{
-		Sample = ceil(Sample - 0.5);
-	}
 	if (Sample > 2147483647)
 	{
 		Sample = 2147483647;
@@ -489,14 +481,6 @@ Sample24 ToneGeneratorGenerate24(ToneGenerator *tg)
 		return S24;
 	}
 	Sample = ToneGeneratorGenerate(tg) * 8388608;
-	if (Sample >= 0)
-	{
-		Sample = floor(Sample + 0.5);
-	}
-	else
-	{
-		Sample = ceil(Sample - 0.5);
-	}
 	if (Sample > 8388607)
 	{
 		Sample = 8388607;
@@ -520,14 +504,6 @@ signed short ToneGeneratorGenerateShort(ToneGenerator *tg)
 		return 0;
 	}
 	Sample = ToneGeneratorGenerate(tg) * 32768;
-	if (Sample >= 0)
-	{
-		Sample = floor(Sample + 0.5);
-	}
-	else
-	{
-		Sample = ceil(Sample - 0.5);
-	}
 	if (Sample > 32767)
 	{
 		Sample = 32767;
@@ -547,14 +523,6 @@ unsigned char ToneGeneratorGenerateChar(ToneGenerator *tg)
 		return 128;
 	}
 	Sample = ToneGeneratorGenerate(tg) * 128;
-	if (Sample >= 0)
-	{
-		Sample = floor(Sample + 0.5);
-	}
-	else
-	{
-		Sample = ceil(Sample - 0.5);
-	}
 	if (Sample > 127)
 	{
 		Sample = 127;
