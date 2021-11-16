@@ -113,6 +113,10 @@ void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value)
 	tg->Digit = value%DTMFTones;
 	switch(tg->Digit)
 	{
+	default:
+		tg->DTMFFrequency1 = 0;
+		tg->DTMFFrequency2 = 0;
+		break;
 	case DTMF1:
 		tg->DTMFFrequency1 = 1209;
 		tg->DTMFFrequency2 = 697;
