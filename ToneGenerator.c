@@ -5,6 +5,7 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+const double pi = M_PI;
 const double twopi = 2 * M_PI;
 #include "ToneGenerator.h"
 
@@ -380,7 +381,7 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		Waveform = sin(tg->Angle + tg->PhaseOffset);
 		break;
 	case WaveTypeSquare:
-		if (tg->Angle >= M_PI)
+		if (tg->Angle >= pi)
 		{
 			Waveform = -1;
 		}
@@ -390,14 +391,14 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		}
 		break;
 	case WaveTypeTriangle:
-		Waveform = 2.0 * tg->Angle / M_PI - 1.0;
+		Waveform = 2.0 * tg->Angle / pi - 1.0;
 		if (Waveform > 1.0)
 		{
 			Waveform = 2.0 - Waveform;
 		}
 		break;
 	case WaveTypeSawtooth:
-		Waveform = tg->Angle / M_PI - 1.0;
+		Waveform = tg->Angle / pi - 1.0;
 		break;
 	case WaveTypeNoise:
 		Waveform = rand() / (double)RAND_MAX;
