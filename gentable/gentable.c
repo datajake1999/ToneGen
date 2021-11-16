@@ -34,10 +34,10 @@ int main()
 	{
 		if (i == tabsize-1)
 		{
-			fprintf(tabfile, "%f\n", table[i]);
+			fprintf(tabfile, "\t%f\n", table[i]);
 			break;
 		}
-		fprintf(tabfile, "%f,\n", table[i]);
+		fprintf(tabfile, "\t%f,\n", table[i]);
 	}
 	fprintf(tabfile, "};\n\n");
 	fprintf(tabfile, "#endif //SINETAB_H");
