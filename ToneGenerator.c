@@ -15,16 +15,13 @@ void ToneGeneratorInit(ToneGenerator *tg)
 	{
 		return;
 	}
-	tg->WaveType = WaveTypeSine;
-	tg->SampleRate = 44100;
-	tg->Frequency = 440;
-	tg->Amplitude = 0.5;
-	tg->PhaseOffset = 0;
-	tg->Angle = 0;
-	tg->Step = twopi * tg->Frequency / tg->SampleRate;
-	tg->DTMFAngle1 = 0;
-	tg->DTMFAngle2 = 0;
+	ToneGeneratorSetWaveType(tg, WaveTypeSine);
+	ToneGeneratorSetSampleRate(tg, 44100);
+	ToneGeneratorSetFrequency(tg, 440);
 	ToneGeneratorSetDigit(tg, DTMF0);
+	ToneGeneratorSetAmplitude(tg, 1);
+	ToneGeneratorSetPhaseOffset(tg, 0);
+	ToneGeneratorResetAngle(tg);
 }
 
 void ToneGeneratorFree(ToneGenerator *tg)
