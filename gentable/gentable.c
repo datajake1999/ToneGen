@@ -26,8 +26,7 @@ int main()
 	fprintf(tabfile, "//Sine wave lookup table\n\n");
 	fprintf(tabfile, "#ifndef SINETAB_H\n");
 	fprintf(tabfile, "#define SINETAB_H\n\n");
-	fprintf(tabfile, "#define TableSize %d.0\n", tabsize);
-	fprintf(tabfile, "#define HalfTableSize %d.0\n\n", tabsize/2);
+	fprintf(tabfile, "#define TableSize %d.0\n\n", tabsize);
 	fprintf(tabfile, "static const double SineTable[%d] = \n", tabsize);
 	fprintf(tabfile, "{\n");
 	for (i = 0; i < tabsize; i++)

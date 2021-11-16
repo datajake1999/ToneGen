@@ -6,7 +6,7 @@
 //#define lookup
 #ifdef lookup
 #include "sinetab.h"
-const double pi = HalfTableSize;
+const double pi = TableSize / 2;
 const double twopi = TableSize;
 #else
 #ifndef M_PI

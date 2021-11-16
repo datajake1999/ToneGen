@@ -4,7 +4,6 @@
 #define SINETAB_H
 
 #define TableSize 1024.0
-#define HalfTableSize 512.0
 
 static const double SineTable[1024] = 
 {
