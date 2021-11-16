@@ -2,11 +2,20 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+
+//#define lookup
+#ifdef lookup
+#include "sinetab.h"
+const double pi = HalfTableSize;
+const double twopi = TableSize;
+#else
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 const double pi = M_PI;
 const double twopi = 2 * M_PI;
+#endif
+
 #include "ToneGenerator.h"
 
 void ToneGeneratorInit(ToneGenerator *tg)
@@ -375,7 +384,11 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 	case WaveTypeSilence:
 		break;
 	case WaveTypeSine:
+#ifdef lookup
+		Waveform = SineTable[(unsigned int)(tg->Angle + tg->PhaseOffset)%(unsigned int)TableSize];
+#else
 		Waveform = sin(tg->Angle + tg->PhaseOffset);
+#endif
 		break;
 	case WaveTypeSquare:
 		if (tg->Angle >= pi)
@@ -401,7 +414,11 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 		Waveform = rand() / (double)RAND_MAX;
 		break;
 	case WaveTypeDTMF:
+#ifdef lookup
+		Waveform = (SineTable[tg->DTMFAngle1] + SineTable[tg->DTMFAngle2]) / 2;
+#else
 		Waveform = (sin(tg->DTMFAngle1) + sin(tg->DTMFAngle2)) / 2;
+#endif
 		tg->DTMFAngle1 += tg->DTMFStep1;
 		if (tg->DTMFAngle1 >= twopi)
 		{
