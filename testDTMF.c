@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
 	}
 	WavFileClose();
 	free(samples);
-	ToneGeneratorFree(&tonegen);
 	printf("Done.\n");
 	return 0;
 }

@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
 	WavFileWrite(samples, numsamples);
 	WavFileClose();
 	free(samples);
-	ToneGeneratorFree(&tonegen);
 	printf("Done.\n");
 	return 0;
 }
