@@ -644,5 +644,5 @@ unsigned int ToneGeneratorMillis2Samples(ToneGenerator *tg, unsigned int Millis)
 	{
 		return 0;
 	}
-	return (unsigned int)(Millis/1000.0)*tg->SampleRate;
+	return (unsigned int)((Millis/1000.0)*tg->SampleRate);
 }
