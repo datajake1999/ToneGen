@@ -29,6 +29,7 @@ void ToneGeneratorInit(ToneGenerator *tg)
 	ToneGeneratorSetDigit(tg, DTMF0);
 	ToneGeneratorSetAmplitude(tg, 1);
 	ToneGeneratorSetPhaseOffset(tg, 0);
+	ToneGeneratorSetPulseWidth(tg, 0.5);
 	ToneGeneratorResetAngle(tg);
 }
 
@@ -227,6 +228,23 @@ void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value)
 	}
 }
 
+void ToneGeneratorSetPulseWidth(ToneGenerator *tg, double value)
+{
+	if (!tg)
+	{
+		return;
+	}
+	tg->PulseWidth = value * twopi - pi;
+	if (tg->PulseWidth > pi)
+	{
+		tg->PulseWidth = pi;
+	}
+	else if (tg->PulseWidth < pi * -1)
+	{
+		tg->PulseWidth = pi * -1;
+	}
+}
+
 unsigned int ToneGeneratorGetWaveType(ToneGenerator *tg)
 {
 	if (!tg)
@@ -279,6 +297,15 @@ double ToneGeneratorGetPhaseOffset(ToneGenerator *tg)
 		return 0;
 	}
 	return (tg->PhaseOffset * 360) / twopi;
+}
+
+double ToneGeneratorGetPulseWidth(ToneGenerator *tg)
+{
+	if (!tg)
+	{
+		return 0;
+	}
+	return tg->PulseWidth + pi / twopi;
 }
 
 void ToneGeneratorResetAngle(ToneGenerator *tg)
@@ -385,7 +412,7 @@ double ToneGeneratorGenerate(ToneGenerator *tg)
 #endif
 		break;
 	case WaveTypeSquare:
-		if (tg->Angle >= pi)
+		if ((tg->Angle + tg->PulseWidth) >= pi)
 		{
 			Waveform = -1;
 		}

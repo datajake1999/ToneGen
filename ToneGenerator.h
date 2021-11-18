@@ -45,6 +45,7 @@ extern "C" {
 		double Frequency;
 		double Amplitude;
 		double PhaseOffset;
+		double PulseWidth;
 		double Angle;
 		double Step;
 		unsigned int Digit;
@@ -68,12 +69,14 @@ extern "C" {
 	void ToneGeneratorSetDigit(ToneGenerator *tg, unsigned int value);
 	void ToneGeneratorSetAmplitude(ToneGenerator *tg, double value);
 	void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value);
+	void ToneGeneratorSetPulseWidth(ToneGenerator *tg, double value);
 	unsigned int ToneGeneratorGetWaveType(ToneGenerator *tg);
 	double ToneGeneratorGetSampleRate(ToneGenerator *tg);
 	double ToneGeneratorGetFrequency(ToneGenerator *tg);
 	unsigned int ToneGeneratorGetDigit(ToneGenerator *tg);
 	double ToneGeneratorGetAmplitude(ToneGenerator *tg);
 	double ToneGeneratorGetPhaseOffset(ToneGenerator *tg);
+	double ToneGeneratorGetPulseWidth(ToneGenerator *tg);
 	void ToneGeneratorResetAngle(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentWaveName(ToneGenerator *tg);
 	const char *ToneGeneratorGetCurrentDigitName(ToneGenerator *tg);

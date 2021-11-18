@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 	unsigned int digit;
 	float volume;
 	float phaseoffset;
+	float pulsewidth;
 	unsigned int milliseconds;
 	unsigned int format;
 	char filename[100];
@@ -52,6 +53,11 @@ int main(int argc, char *argv[])
 		printf("Enter phase offset in degrees.\n");
 		scanf("%f", &phaseoffset);
 	}
+	else if (wavetype == WaveTypeSquare)
+	{
+		printf("Enter pulse width from 0 to 1.\n");
+		scanf("%f", &pulsewidth);
+	}
 	printf("Enter duration in mS.\n");
 	scanf("%d", &milliseconds);
 	printf("Enter audio format.\n");
@@ -71,6 +77,7 @@ int main(int argc, char *argv[])
 	ToneGeneratorSetDigit(&tonegen, digit);
 	ToneGeneratorSetAmplitude(&tonegen, volume);
 	ToneGeneratorSetPhaseOffset(&tonegen, phaseoffset);
+	ToneGeneratorSetPulseWidth(&tonegen, pulsewidth);
 	numsamples = ToneGeneratorMillis2Samples(&tonegen, milliseconds);
 	if (format == 1)
 	{
