@@ -234,7 +234,7 @@ void ToneGeneratorSetPulseWidth(ToneGenerator *tg, double value)
 	{
 		return;
 	}
-	tg->PulseWidth = value * twopi - pi;
+	tg->PulseWidth = (value * twopi) - pi;
 	if (tg->PulseWidth > pi)
 	{
 		tg->PulseWidth = pi;
@@ -305,7 +305,7 @@ double ToneGeneratorGetPulseWidth(ToneGenerator *tg)
 	{
 		return 0;
 	}
-	return tg->PulseWidth + pi / twopi;
+	return (tg->PulseWidth + pi) / twopi;
 }
 
 void ToneGeneratorResetAngle(ToneGenerator *tg)
