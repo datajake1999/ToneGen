@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
 	printf("2 = square.\n");
 	printf("3 = triangle.\n");
 	printf("4 = sawtooth.\n");
+	printf("5 = impulse.\n");
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);

@@ -28,12 +28,13 @@ int main(int argc, char *argv[])
 	printf("2 = square.\n");
 	printf("3 = triangle.\n");
 	printf("4 = sawtooth.\n");
-	printf("5 = noise.\n");
-	printf("6 = DTMF.\n");
+	printf("5 = impulse.\n");
+	printf("6 = noise.\n");
+	printf("7 = DTMF.\n");
 	scanf("%d", &wavetype);
 	printf("Enter sample rate in hZ.\n");
 	scanf("%d", &samplerate);
-	if (wavetype >= WaveTypeSine && wavetype <= WaveTypeSawtooth)
+	if (wavetype >= WaveTypeSine && wavetype <= WaveTypeImpulse)
 	{
 		printf("Enter frequency in hZ.\n");
 		scanf("%f", &frequency);

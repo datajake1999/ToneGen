@@ -8,6 +8,7 @@ enum
 	WaveTypeSquare,
 	WaveTypeTriangle,
 	WaveTypeSawtooth,
+	WaveTypeImpulse,
 	WaveTypeNoise,
 	WaveTypeDTMF,
 	WaveTypes
@@ -48,6 +49,7 @@ extern "C" {
 		double PulseWidth;
 		double Angle;
 		double Step;
+		unsigned char Impulse;
 		unsigned int Digit;
 		double DTMFFrequency1;
 		double DTMFAngle1;
