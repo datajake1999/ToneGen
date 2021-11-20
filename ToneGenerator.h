@@ -65,6 +65,7 @@ extern "C" {
 	}Sample24;
 
 	void ToneGeneratorInit(ToneGenerator *tg);
+	void ToneGeneratorClear(ToneGenerator *tg);
 	void ToneGeneratorSetWaveType(ToneGenerator *tg, unsigned int value);
 	void ToneGeneratorSetSampleRate(ToneGenerator *tg, double value);
 	void ToneGeneratorSetFrequency(ToneGenerator *tg, double value);

@@ -33,6 +33,15 @@ void ToneGeneratorInit(ToneGenerator *tg)
 	ToneGeneratorResetAngle(tg);
 }
 
+void ToneGeneratorClear(ToneGenerator *tg)
+{
+	if (!tg)
+	{
+		return;
+	}
+	memset(tg, 0, sizeof(ToneGenerator));
+}
+
 void ToneGeneratorSetWaveType(ToneGenerator *tg, unsigned int value)
 {
 	if (!tg)
