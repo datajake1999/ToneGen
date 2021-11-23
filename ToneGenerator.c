@@ -226,7 +226,7 @@ void ToneGeneratorSetPhaseOffset(ToneGenerator *tg, double value)
 	{
 		return;
 	}
-	tg->PhaseOffset = value * (twopi / 360);
+	tg->PhaseOffset = (value * twopi) / 360;
 	if (tg->PhaseOffset > twopi)
 	{
 		tg->PhaseOffset = twopi;
